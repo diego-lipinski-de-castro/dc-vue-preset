@@ -1,18 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Routes from 'vue-routisan'
 
-import routes from './routes'
-
-Vue.use(Router)
-
-const router = new Router({
-    mode: 'hash',
-    // base: '',
-    linkActiveClass: 'router-link-active',
-    linkExactActiveClass: 'router-link-exact-active',
-    scrollBehavior: () => { y: 0 },
-    // fallback: '',
-    routes: routes
+Routes.setViewResolver(path => {
+    path = path.replace(/\./g, '/')
+    return import(`./../${path}`)
 })
 
-export default router
+export default Routes.all()
